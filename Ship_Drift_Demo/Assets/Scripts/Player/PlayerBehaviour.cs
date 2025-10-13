@@ -22,6 +22,9 @@ namespace ShipDrift.Behaviour.Player {
         [SerializeField]
         private Vector3 velocity = Vector3.zero;
 
+        [SerializeField]
+        private Transform pivot;
+
         public void ShootLeft(InputAction.CallbackContext value) {
             if(value.performed) {
                 Shoot(-1);
@@ -37,7 +40,7 @@ namespace ShipDrift.Behaviour.Player {
             if(cannonCoolDown_ <= 0) {
                 Debug.Log((direction>0) ? "Right" : "Left");
                 cannonCoolDown_ = cannonCoolDownAmount_;
-                velocity += -direction * cannonPower_ * transform.right;
+                velocity += -direction * cannonPower_ * new Vector3(1, 0, 0);
             }
         }
 
@@ -51,8 +54,15 @@ namespace ShipDrift.Behaviour.Player {
             if(cannonCoolDown_ > 0) {
                 cannonCoolDown_ -= Time.deltaTime;
             }
-            transform.position += velocity * Time.deltaTime;
+
+
+            transform.up = pivot.position - transform.position;
+
+            Vector3 influencedVelocity = (velocity.y * transform.up + velocity.x * transform.right);
+
+            transform.position += influencedVelocity * Time.deltaTime;
             velocity -= velocity.normalized*decelSpeed_*Time.deltaTime;
+            
 
         }
     }
