@@ -1,0 +1,54 @@
+{
+    "name": "Player Inputs",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "9b453e53-4aa5-43b6-89ba-2f643f35ef07",
+            "actions": [
+                {
+                    "name": "ShootLeft",
+                    "type": "Button",
+                    "id": "45643d39-4f0d-4735-bd21-4203ff8a2f7e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShootRight",
+                    "type": "Button",
+                    "id": "e47c6006-f9cc-4d2c-b9a7-16281ccfd33a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4558d2f4-2b78-48c9-a6ed-19f238a223e7",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "01536629-d629-4b20-a629-16bb21ca5ed4",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
