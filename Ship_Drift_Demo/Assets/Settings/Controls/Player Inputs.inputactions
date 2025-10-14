@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "UnHarpoon",
+                    "type": "Button",
+                    "id": "0129802d-4468-4811-9d80-74564e369baa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -59,11 +68,22 @@
                 {
                     "name": "",
                     "id": "c0d41cfd-80ac-4046-bdff-dd2af3a2c39f",
-                    "path": "<Keyboard>/space",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Harpoon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "58ccc014-8e54-423b-9e16-78556972aff5",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UnHarpoon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
