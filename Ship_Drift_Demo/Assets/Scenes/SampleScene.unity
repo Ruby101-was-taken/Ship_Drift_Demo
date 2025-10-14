@@ -569,6 +569,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e47c6006-f9cc-4d2c-b9a7-16281ccfd33a
     m_ActionName: 'Player/ShootRight[/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 385297953}
+        m_TargetAssemblyTypeName: ShipDrift.Behaviour.Player.PlayerBehaviour, Assembly-CSharp
+        m_MethodName: ToggleAttach
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c600d462-77ff-4569-a62e-be9af80d5c98
+    m_ActionName: 'Player/Harpoon[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -22,6 +22,8 @@ namespace ShipDrift.Behaviour.Player {
         [SerializeField]
         private Vector3 velocity = Vector3.zero;
 
+        private bool attached_ = false;
+
         [SerializeField]
         private Transform pivot;
 
@@ -34,6 +36,9 @@ namespace ShipDrift.Behaviour.Player {
             if(value.performed) {
                 Shoot(1);
             }
+        }
+        public void ToggleAttach(InputAction.CallbackContext value) {
+            attached_ = !attached_; 
         }
 
         private void Shoot(int direction) {
@@ -55,8 +60,9 @@ namespace ShipDrift.Behaviour.Player {
                 cannonCoolDown_ -= Time.deltaTime;
             }
 
-
-            transform.up = pivot.position - transform.position;
+            if(attached_) {
+                transform.up = pivot.position - transform.position;
+            }
 
             Vector3 influencedVelocity = (velocity.y * transform.up + velocity.x * transform.right);
 
