@@ -10,6 +10,16 @@ class Node:
         pygame.draw.circle(self.surface, (255, 0, 0), (Constants.GRID_SIZE/2, Constants.GRID_SIZE/2), Constants.GRID_SIZE/2)
         
         self.nextNodes:List[Node] = []
+        
+        self.needsToSplit=False
+        self.readyToSplit=False
+        
+    def Update(self, worldPosition:pygame.Vector2):
+        if self.needsToSplit:
+            pos = self.position + worldPosition
+            if pos.y >= 0:
+                self.readyToSplit = True
+                
     
     def DrawConnections(self, window:pygame.Surface, worldPosition:pygame.Vector2):
         selfRenderPosition =( self.position*Constants.GRID_SIZE + worldPosition*Constants.GRID_SIZE) + pygame.Vector2(Constants.GRID_SIZE/2, Constants.GRID_SIZE/2) # gets the center position where it should be rendered for self node

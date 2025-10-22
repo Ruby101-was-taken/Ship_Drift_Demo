@@ -5,6 +5,7 @@ os.system("cls")
 
 import pygame
 import Constants
+import random
 from Node import Node
 from typing import List
 
@@ -44,19 +45,47 @@ def redraw():
     pygame.display.flip()
     
 
-def AddNode(node:Node):
+def AddNode(node:Node, connectedNode:Node)->Node:
     if len(nodes) > 0:
-        node.nextNodes.append(nodes[-1])
+        node.nextNodes.append(connectedNode)
     nodes.append(node)
     print(f"The current amount of nodes: {len(nodes)}")
+    return node
+    
+def GeneratePath(length:int, x:int, lastNode:Node=None):
+    nodeAtPos = GetNodeAtPos(lastNode.position.x+x, lastNode.position.y-1) 
+    if nodeAtPos == None:
+        node:Node = AddNode(Node(lastNode.position.x+x, lastNode.position.y-1), lastNode)
+        length-=1
+        if length > 0:
+            GeneratePath(length, 0, nodes[-1])
+        else:
+            node.needsToSplit = True # tells the last node it needs to split
+    else:
+        lastNode.nextNodes.append(nodeAtPos)
+        
+def GeneratePathsFromNode(node:Node, pathLength:int):
+    paths = random.randint(2, 2)
+    print(paths)
+    if paths == 2:
+        pathPos = [-1, 1]
+    else:
+        pathPos = [-1, 0, 1]
+    for i in range(paths):
+        GeneratePath(pathLength, pathPos[i], node)
+        
+def GetNodeAtPos(x:int, y:int)->Node:
+    newPosition = pygame.Vector2(x, y)
+    for node in nodes:
+        if node.position == newPosition:
+            return node
+    return None
 
 worldPosition:pygame.Vector2 = pygame.Vector2(0,0)
 
 nodes:List[Node] = []
-AddNode(Node(5, 0))
-for i in range(7):
-    lastNode:Node = nodes[-1]
-    AddNode(Node(lastNode.position.x, lastNode.position.y-1))
+
+GeneratePathsFromNode(AddNode(Node(5, 4), None), 3)
 
 moveTimer = 0
 hasMoved = False
@@ -77,6 +106,11 @@ while run:
         hasMoved = True
         worldPosition.y += 1
         
-        lastNode:Node = nodes[-1]
-        AddNode(Node(lastNode.position.x, lastNode.position.y-1))
+        for node in nodes:
+            node.Update(worldPosition)
+            if node.readyToSplit:
+                pathLength = random.randint(2, 5)
+                GeneratePathsFromNode(node, pathLength)
+                node.readyToSplit = False
+                node.needsToSplit = False
 pygame.quit()
