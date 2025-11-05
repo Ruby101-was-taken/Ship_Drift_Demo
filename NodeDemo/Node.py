@@ -3,6 +3,13 @@ import Constants
 from typing import List
 import Types
 import random
+import typing
+
+if typing.TYPE_CHECKING:
+    import Path
+else:
+    class Path:
+        pass
 
 class Node:
     def __init__(self, x:int, y:int):
@@ -35,3 +42,21 @@ class Node:
         renderPosition = self.position + worldPosition # gets the grid position where it should be rendered
         window.blit(self.surface, (renderPosition.x*Constants.GRID_SIZE, renderPosition.y*Constants.GRID_SIZE))
         return renderPosition*Constants.GRID_SIZE
+
+    
+class ChoiceNode(Node):
+    def __init__(self, x:int, y:int):
+        super().__init__(x, y)
+        self.right:Path.Path = None
+        self.left:Path.Path = None
+        self.chosen:Path.Path = None
+    def GoLeft(self):
+        del self.right.lastNode
+        del self.right
+        self.right = self.left
+        self.chosen = self.left
+    def GoRight(self):
+        del self.left.lastNode
+        del self.left
+        self.left = self.right
+        self.chosen = self.right

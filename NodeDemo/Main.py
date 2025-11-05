@@ -27,8 +27,7 @@ def redraw():
     
     path:Path
     
-    for path in paths:
-        path.Draw(window, worldPosition)
+    rootPath.Draw(window, worldPosition)
         
         
     for x in range(int(Constants.WINDOW_WIDTH/Constants.GRID_SIZE)):
@@ -38,64 +37,14 @@ def redraw():
    
    
     pygame.display.flip()
-    
 
-# def AddNode(node:Node, connectedNode:Node)->Node:
-#     if len(nodes) > 0:
-#         node.nextNodes.append(connectedNode)
-#     nodes.append(node)
-#     print(f"The current amount of nodes: {len(nodes)}")
-#     return node
-    
-# def GeneratePath(length:int, x:int, lastNode:Node=None):
-#     nodeAtPos = GetNodeAtPos(lastNode.position.x+x, lastNode.position.y-1) 
-#     if nodeAtPos == None:
-#         node:Node = AddNode(Node(lastNode.position.x+x, lastNode.position.y-1), lastNode)
-#         length-=1
-#         if length > 0:
-#             GeneratePath(length, 0, nodes[-1])
-#         else:
-#             node.needsToSplit = True # tells the last node it needs to split
-#     else:
-#         lastNode.nextNodes.append(nodeAtPos)
-        
-# def GeneratePathsFromNode(node:Node, pathLength:int):
-#     paths = random.randint(2, 2)
-#     print(paths)
-#     if paths == 2:
-#         pathPos = [-1, 1]
-#     else:
-#         pathPos = [-1, 0, 1]
-#     for i in range(paths):
-#         GeneratePath(pathLength, pathPos[i], node)
-        
-# def GetNodeAtPos(x:int, y:int)->Node:
-#     newPosition = pygame.Vector2(x, y)
-#     for node in nodes:
-#         if node.position == newPosition:
-#             return node
-#     return None
 
-def AddPath(path:Path):
-    paths.append(path)
-def GeneratePath():
-    pathSplits = random.randint(2, 2)
-    pathLength = random.randint(3, 7)
-    if pathSplits == 2:
-        pathPos = [-1, 1]
-    else:
-        pathPos = [-1, 0, 1]
-    for i in range(pathSplits):
-        Path(paths[0].nodes[-1], pathLength, pathPos[i])
 
 worldPosition:pygame.Vector2 = pygame.Vector2(0,0)
 
-nodes:List[Node] = []
-p = Path(Node(5, 4), 3, 1)
+rootPath = Path(Node(5, 4), 0, 0)
+rootPath.AddPaths()
 
-paths:List[Path] = [p]
-
-GeneratePath()
 
 
 moveTimer = 0
@@ -116,11 +65,25 @@ while run:
     if move and not hasMoved:
         moveTimer = 0
         hasMoved = True
-        worldPosition.y += 1
-        
-        
-        for node in nodes:
-            node.Update(worldPosition)
+        worldPosition.y+=1
+        rootPath.Update(worldPosition)
+        rootEndPos = worldPosition.y + rootPath.lastNode.position.y
+        if rootEndPos == 5:
+            r = random.randint(0,1)
+            if r == 0:
+                rootPath.lastNode.GoLeft()
+                worldPosition.x -=1
+            else:
+                rootPath.lastNode.GoRight()
+                worldPosition.x +=1
+        elif rootEndPos >= 6:
+            rootPath.AddPaths()
+            del rootPath.lastNode.right
+            del rootPath.lastNode.left
+            oldPath = rootPath
+            rootPath = rootPath.lastNode.chosen
+            oldPath.nodes = []
+            del oldPath
     elif hasMoved and not move:
         hasMoved = False
 
