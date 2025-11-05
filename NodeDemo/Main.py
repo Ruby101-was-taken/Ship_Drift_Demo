@@ -18,8 +18,10 @@ clock = pygame.time.Clock()
 
 run = True
 
+bottom = pygame.image.load("Assets/bottom.png")
+
 def redraw():
-    window.fill((0,0,0))
+    window.fill((101,157,242))
     
     intWorldPos = pygame.Vector2(int(worldPosition.x), int(worldPosition.y))
     
@@ -30,11 +32,12 @@ def redraw():
     rootPath.Draw(window, worldPosition)
         
         
-    for x in range(int(Constants.WINDOW_WIDTH/Constants.GRID_SIZE)):
-        pygame.draw.line(window, (255, 255, 255), (x*Constants.GRID_SIZE, 0), (x*Constants.GRID_SIZE, Constants.WINDOW_HEIGHT), Constants.GRID_LINE_WIDTH)
-    for y in range(int(Constants.WINDOW_HEIGHT/Constants.GRID_SIZE)):
-        pygame.draw.line(window, (255, 255, 255), (0, y*Constants.GRID_SIZE), (Constants.WINDOW_WIDTH, y*Constants.GRID_SIZE), Constants.GRID_LINE_WIDTH)
+    # for x in range(int(Constants.WINDOW_WIDTH/Constants.GRID_SIZE)):
+    #     pygame.draw.line(window, (255, 255, 255), (x*Constants.GRID_SIZE, 0), (x*Constants.GRID_SIZE, Constants.WINDOW_HEIGHT), Constants.GRID_LINE_WIDTH)
+    # for y in range(int(Constants.WINDOW_HEIGHT/Constants.GRID_SIZE)):
+    #     pygame.draw.line(window, (255, 255, 255), (0, y*Constants.GRID_SIZE), (Constants.WINDOW_WIDTH, y*Constants.GRID_SIZE), Constants.GRID_LINE_WIDTH)
    
+    window.blit(bottom, (0,Constants.WINDOW_HEIGHT-66))
    
     pygame.display.flip()
 

@@ -1,4 +1,5 @@
 import Types
+import pygame
 
 WINDOW_WIDTH = 1100
 WINDOW_HEIGHT = 700
@@ -8,12 +9,12 @@ GRID_LINE_WIDTH = 2
 
 CONNECTING_LINE_WIDTH = 5
 
-TYPE_COLOURS = {
-    Types.NodeTypes.GOAL : (255, 255, 0),
-    Types.NodeTypes.ENEMIES : (255, 0, 0),
-    Types.NodeTypes.CLEAN_UP: (0, 255, 255),
-    Types.NodeTypes.SPEED_SAIL: (0, 0, 255),
-    Types.NodeTypes.BARRIER : (0, 0, 255),
-    Types.NodeTypes.FISHERS : (255, 255, 255),
-    Types.NodeTypes.SHOP : (255, 0, 255)
+TYPE_ICONS = {
+    Types.NodeTypes.GOAL :          pygame.image.load("Assets/0.png"),
+    Types.NodeTypes.ENEMIES :       pygame.image.load("Assets/1.png"),
+    Types.NodeTypes.CLEAN_UP:       pygame.image.load("Assets/2.png"),
+    Types.NodeTypes.SPEED_SAIL:     pygame.image.load("Assets/3.png"),
+    Types.NodeTypes.BARRIER :       pygame.image.load("Assets/4.png"),
+    Types.NodeTypes.FISHERS :       pygame.image.load("Assets/5.png"),
+    Types.NodeTypes.SHOP :          pygame.image.load("Assets/6.png")
 }

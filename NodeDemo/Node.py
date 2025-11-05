@@ -10,6 +10,7 @@ if typing.TYPE_CHECKING:
 else:
     class Path:
         pass
+    
 
 class Node:
     def __init__(self, x:int, y:int):
@@ -29,8 +30,7 @@ class Node:
         
     
     def SetType(self):   
-        self.surface = pygame.Surface((Constants.GRID_SIZE, Constants.GRID_SIZE), pygame.SRCALPHA)
-        pygame.draw.circle(self.surface, Constants.TYPE_COLOURS[self.type], (Constants.GRID_SIZE/2, Constants.GRID_SIZE/2), Constants.GRID_SIZE/2)
+        self.surface = Constants.TYPE_ICONS[self.type]
         
         
     def Update(self, worldPosition:pygame.Vector2):
@@ -44,11 +44,11 @@ class Node:
         selfRenderPosition =( self.position*Constants.GRID_SIZE + worldPosition*Constants.GRID_SIZE) + pygame.Vector2(Constants.GRID_SIZE/2, Constants.GRID_SIZE/2) # gets the center position where it should be rendered for self node
         for node in self.nextNodes:
             nextRenderPosition = (node.position*Constants.GRID_SIZE + worldPosition*Constants.GRID_SIZE) + pygame.Vector2(Constants.GRID_SIZE/2, Constants.GRID_SIZE/2) # gets the center position where it should be rendered for next node
-            pygame.draw.line(window, (100, 255, 100), selfRenderPosition, nextRenderPosition, Constants.CONNECTING_LINE_WIDTH)
+            pygame.draw.line(window, (255, 255, 255), selfRenderPosition, nextRenderPosition, Constants.CONNECTING_LINE_WIDTH)
     
     def Draw(self, window:pygame.Surface, worldPosition:pygame.Vector2) -> pygame.Vector2: #position is returned so we know if this has gone off screen
         renderPosition = self.position + worldPosition # gets the grid position where it should be rendered
-        window.blit(self.surface, (renderPosition.x*Constants.GRID_SIZE, renderPosition.y*Constants.GRID_SIZE))
+        window.blit(self.surface, (renderPosition.x*Constants.GRID_SIZE + 25, renderPosition.y*Constants.GRID_SIZE+25))
         return renderPosition*Constants.GRID_SIZE
 
     

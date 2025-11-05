@@ -23,9 +23,9 @@ class Path:
     def Draw(self, window:pygame.Surface, worldPosition:pygame.Vector2):
         node:Node.Node
         for node in self.nodes:
-            node.Draw(window, worldPosition)
-        for node in self.nodes:
             node.DrawConnections(window, worldPosition)
+        for node in self.nodes:
+            node.Draw(window, worldPosition)
             
         if not self.lastNode.right is None and self.lastNode.right != "done":
             self.lastNode.right.Draw(window, worldPosition)
