@@ -14,15 +14,23 @@ else:
 class Node:
     def __init__(self, x:int, y:int):
         self.position = pygame.Vector2(x, y) #position on the grid
-        self.type:Types.NodeTypes = random.choice(list(Types.NodeTypes))
-        
-        self.surface = pygame.Surface((Constants.GRID_SIZE, Constants.GRID_SIZE), pygame.SRCALPHA)
-        pygame.draw.circle(self.surface, Constants.TYPE_COLOURS[self.type], (Constants.GRID_SIZE/2, Constants.GRID_SIZE/2), Constants.GRID_SIZE/2)
-        
+        self.ShuffleType()
         self.nextNodes:List[Node] = []
         
         self.needsToSplit=False
         self.readyToSplit=False
+    
+    def ShuffleType(self):
+        self.type:Types.NodeTypes = random.choice(list(Types.NodeTypes))
+        if self.type != Types.NodeTypes.SHOP:
+            self.SetType()
+        else:
+            self.ShuffleType()
+        
+    
+    def SetType(self):   
+        self.surface = pygame.Surface((Constants.GRID_SIZE, Constants.GRID_SIZE), pygame.SRCALPHA)
+        pygame.draw.circle(self.surface, Constants.TYPE_COLOURS[self.type], (Constants.GRID_SIZE/2, Constants.GRID_SIZE/2), Constants.GRID_SIZE/2)
         
         
     def Update(self, worldPosition:pygame.Vector2):

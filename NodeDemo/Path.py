@@ -1,5 +1,7 @@
 import Node
 import pygame
+import Types
+import random
 
 class Path:
     def __init__(self, parentNode:Node.Node, length:int, x = 0):
@@ -31,9 +33,21 @@ class Path:
         if not self.lastNode.left is None and self.lastNode.left != "done":
             self.lastNode.left.Draw(window, worldPosition)
     def AddConnection(self, node:Node.Node):
+        
+        
+        canAdd = self.CheckNodeType(node)
+        while not canAdd:
+            node.ShuffleType()
+            canAdd = self.CheckNodeType(node)
+        
         self.nodes[-1].nextNodes.append(node)
         self.nodes.append(node)
-        node.path = self
+        
+    def CheckNodeType(self, node:Node.Node)->bool:
+        for n in self.nodes:
+            if n.type == node.type:
+                return False
+        return True
         
     def CreatePath(self, length, xOffset):
         if length == 0:
@@ -52,6 +66,10 @@ class Path:
             
         self.lastNode = Node.ChoiceNode(x, y)
         self.AddConnection(self.lastNode)
+        
+        randNode = random.choice(self.nodes)
+        randNode.type = Types.NodeTypes.SHOP
+        randNode.SetType()
         
     def AddPaths(self):
         if self.lastNode.right is None:
